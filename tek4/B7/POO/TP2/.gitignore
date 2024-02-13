@@ -1,0 +1,5 @@
+facture_*.txt
+GestionGarage
+build/
+.vscode/
+docs/

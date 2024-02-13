@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: kube-public
+  name: traefik-sa
+  labels:
+    app: traefik
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kube-public
+  name: traefik
+  labels:
+    app: traefik
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      restartPolicy: Always
+      serviceAccountName: traefik-sa
+      containers:
+        - name: traefik
+          image: traefik:2.7
+          ports:
+            - name: http
+              containerPort: 80
+            - name: admin
+              containerPort: 8080
+          args:
+            - --api
+            - --kubernetes
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - traefik
+              topologyKey: "kubernetes.io/hostname"

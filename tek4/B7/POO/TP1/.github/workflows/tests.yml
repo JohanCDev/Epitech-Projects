@@ -1,0 +1,28 @@
+name: Functional Test
+
+on:
+  push:
+    branches: [ main ]
+
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install required tools
+        run: |
+          sudo apt-get install -y build-essential
+      
+      - name: Build project
+        run: |
+          mkdir build && cd build
+          cmake ..
+          cd ..
+          cmake --build build -j 8
+
+      - name: Run tests
+        run: |
+          ./TaskAdmin > test/result
+          diff test/result test/resultExpected || { exit 1; }

@@ -1,0 +1,171 @@
+##
+## EPITECH PROJECT, 2021
+## B-SYN-200-NAN-2-1-automakefile-johan.chrillesen
+## File description:
+## Makefile
+##
+
+#!/bin/bash
+if [ $# != 1 ]
+then
+  	echo "Bad arguments" >&2
+	exit 84
+fi
+folder=$1
+if [ ! -f $folder ]
+then
+  	echo "Bad arguments" >&2
+	exit 84
+else
+	IFS=";"
+	while read line 
+	do
+		array=($line)
+		if [[ ${array[0]} == "PROJECT_DIR" ]]
+		then
+			project_dir=${array[1]}
+		elif [[ ${array[0]} == "SOURCES_DIR" ]]
+		then
+			sources_dir=${array[1]}
+		elif [[ ${array[0]} == "HEADERS_DIR" ]]
+		then
+			headers_dir=${array[1]}
+		elif [[ ${array[0]} == "LIBS_DIR" ]]
+		then
+			libs_dir=${array[1]}
+		elif [[ ${array[0]} == "EXEC" ]]
+		then
+			exec=${array[1]}
+		elif [[ ${array[0]} == "CC" ]]
+		then
+			cc=${array[1]}
+		elif [[ ${array[0]} == "CFLAGS" ]]
+		then
+			cflags=${array[1]}
+		elif [[ ${array[0]} == "LDFLAGS" ]]
+		then
+			ldflags=${array[1]}
+		elif [[ ${array[0]} == "BCK_DIR" ]]
+		then
+			comp_folder=${array[1]}
+		elif [[ ${array[0]} == "ZIP" ]]
+		then
+			comp_bin=${array[1]}
+		elif [[ ${array[0]} == "ZIPFLAGS" ]]
+		then
+			comp_flags=${array[1]}
+		elif [[ ${array[0]} == "UNZIP" ]]
+		then
+			decomp_bin=${array[1]}
+		elif [[ ${array[0]} == "UNZIPFLAGS" ]]
+		then
+			decomp_flags=${array[1]}
+		elif [[ ${array[0]} == *.c ]]
+		then
+			srcs[nb_files]=${array[0]}
+			depen[nb_files]=${array[1]}
+			((nb_files++))
+		fi
+	done < "$1"
+	if [ -z $project_dir ]
+	then
+		echo "No Project Directory" >&2
+		exit 84
+	elif [ -z $nb_files ]
+	then
+		echo "No source file" >&2
+		exit 84
+	elif [ -d $exec ]
+	then
+		echo "The executable is a folder"
+		exit 84
+	fi
+	if [ ! -d $project_dir ]
+	then
+		mkdir $project_dir; 
+	fi
+	fname=Makefile
+	cd $project_dir
+	:> "$fname"
+	echo -e "NAME = $exec\n" >> "$fname"
+	echo -e "CC = $cc\n" >> "$fname"
+	i=0
+	already_print=0
+	cd $sources_dir
+	for ((i=0; nb_files != i; i++))
+	do
+		if [ -f ${srcs[i]} ]
+		then
+			if [ $already_print = 0 ]
+			then
+				echo -e "SRC=$sources_dir/${srcs[i]} \\" >> "$fname"
+				already_print=1
+			else
+				echo -e "\t$sources_dir/${srcs[i]} \\" >> "$fname"
+			fi
+		else
+			echo "A src file is invalid" >&2
+			exit 84
+		fi
+	done
+	cd ../
+	echo -e "\nOBJ = \$(SRC:.c=.o)\n" >> "$fname"
+	echo -e "CFLAGS = $cflags\n" >> "$fname"
+	echo -e "LDFLAGS =" >> "$fname"
+	echo -e "\nall: \$(NAME)\n" >> "$fname"
+	echo -e "\$(NAME): \$(OBJ)" >> "$fname"
+	if [ ! -z $libs_dir ]
+	then
+		if [ -f "$libs_dir/Makefile" ]
+		then
+			echo -e "\t\$(MAKE) -C $libs_dir" >> "$fname"
+		fi
+	fi
+	echo -e "\t\$(CC) -o \$(NAME) \$(OBJ) \$(CFLAGS) \$(LDFLAGS)\n" >> "$fname"
+	echo -e "clean:" >> "$fname"
+	echo -e "\trm -f \$(OBJ)" >> "$fname"
+	echo -e "\trm -f *.gcda" >> "$fname"
+	echo -e "\trm -f *.gcno" >> "$fname"
+	echo -e "\trm -f vgcore.*" >> "$fname"
+	if [ ! -z $libs_dir ]
+	then
+		if [ -f "$libs_dir/Makefile" ]
+		then
+			echo -e "\t\$(MAKE) clean -C $libs_dir" >> "$fname"
+		fi
+	fi
+	echo -e "\nfclean:\tclean" >> "$fname"
+	echo -e "\trm -f \$(NAME)" >> "$fname"
+	if [ ! -z $libs_dir ]
+	then
+		if [ -f "$libs_dir/Makefile" ]
+		then
+			echo -e "\t\$(MAKE) fclean -C $libs_dir" >> "$fname"
+		fi
+	fi
+	echo -e "\nre: fclean all" >> "$fname"
+	version="1_0"
+	if [ ! -z $comp_bin && ! -z $comp_flags && ! -z $comp_folder && ! -z $version ]
+	then
+		echo -e "\narchive:" >> "$fname"
+		echo -e "\t$comp_bin $comp_flags ./$comp_folder/backup_$version.$comp_bin \$(SRC)" >> "$fname"
+		echo -e "\t@echo \"$comp_folder file generated\"" >> "$fname"
+	fi
+	if [ ! -z $decomp_bin && ! -z $decomp_flags && ! -z $comp_folder && ! -z $version && ! -z $comp_bin ]
+	then
+		echo -e "\nrevert:" >> "$fname"
+		echo -e "\t$decomp_bin $decomp_flags ./$comp_folder/backup_$version.$comp_bin \$(SRC)" >> "$fname"
+	fi
+	if [ ! -z $version ]
+	then
+		echo -e "\nnum:" >> "$fname"
+		echo -e "\t@echo \"$version\"" >> "$fname"
+	fi
+	if [ ! -z $comp_folder ]
+	then
+		echo -e "\ndelete:" >> "$fname"
+		echo -e "\trm -rf $comp_folder" >> "$fname"
+		echo -e "\n.PHONY: all clean fclean re" >> "$fname"
+	fi
+fi
+exit 0

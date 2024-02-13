@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+.idea/
+308reedpipes
+example
+drawer.gnu
+.coverage
+unit_tests.py
+.pytest_cache/
+map
+map1

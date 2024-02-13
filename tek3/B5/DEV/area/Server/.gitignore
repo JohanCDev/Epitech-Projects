@@ -1,0 +1,15 @@
+node_modules
+package-lock.json
+yarn.lock
+.env
+# Config
+firebaseConfig.js
+twitchConfig.js
+serviceAccountKey.json
+
+# Service
+configGmail.js
+configOpenMeteo.js
+serviceAccountKey.json
+
+docs/

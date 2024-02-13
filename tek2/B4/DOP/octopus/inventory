@@ -1,0 +1,2 @@
+[all]
+20.199.25.129 ansible_ssh_user=azureuser ansible_ssh_private_key_file=~/Downloads/VM_key2.pem

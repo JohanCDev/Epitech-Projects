@@ -1,0 +1,77 @@
+name: Build
+
+on: push
+
+jobs:
+  build-on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install pytest
+        uses: BSFishy/pip-action@v1
+        with:
+          packages: |
+            pytest
+            pytest-cov
+            make
+
+      - name: Build Gomoku binaries
+        run: make re
+
+      - name: Run tests
+        run: make tests_run
+
+      - name: Check Gomoku build
+        run: |
+          test -f pbrain-gomoku-ai
+
+  build-on-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install pytest
+        uses: BSFishy/pip-action@v1
+        with:
+          packages: |
+            pytest
+            pytest-cov
+            pyinstaller
+            make
+
+      - name: Build Gomoku binaries
+        run: make re
+
+      - name: Run tests
+        run: make tests_run
+
+      - name: Build executable file
+        run: ./ExeForPiskvork.ps1
+
+      - name: Check Gomoku build
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "./dist/pbrain-gomoku-ai.exe.notanexecutable"
+
+  mirror:
+    needs: [build-on-ubuntu]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: ${{ secrets.EPI_REPO_URL }}
+          ssh_private_key: ${{ secrets.EPI_MIRRORING_KEY }}

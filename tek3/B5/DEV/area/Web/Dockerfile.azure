@@ -1,0 +1,22 @@
+FROM node:latest
+
+# Install dependencies
+RUN mkdir /app/
+WORKDIR /app/
+COPY ./package.json /app/package.json
+RUN yarn
+
+# Copy project
+COPY ./public/ /app/public/
+COPY ./src/ /app/src/
+
+# Create common folder
+RUN mkdir /release
+
+# COPY ./release/client.apk /app/public/client.apk
+
+RUN mkdir build
+
+RUN npm run build
+
+CMD npx serve -s build -l 80

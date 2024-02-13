@@ -1,0 +1,12 @@
+name: Build
+
+on: push
+
+jobs:
+  checks_name:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check file name
+        run: |
+          ls ${{ github.workspace }} | grep internshipTEK3_johan.chrillesen@epitech.eu_2022.pdf || exit 1

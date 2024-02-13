@@ -1,0 +1,13 @@
+*.cmake
+nanotekspice
+CMakeFiles
+Makefile
+CMakeCache.txt
+.vscode
+*.out
+out
+ZIP/
+*.ghp
+build/
+tmpmain.cpp
+or_gates

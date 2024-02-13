@@ -1,0 +1,15 @@
+--- Affichage de la tâche ---
+ID : 1
+Titre : Acheter du pain
+Description : Aller à la boulangerie
+Date de début : 01/10/2023
+Date de fin : 01/10/2023
+Statut : En cours
+--- Affichage des tâches de l'utilisateur John Doe ---
+1) [En cours] Acheter du pain - Aller à la boulangerie (01/10/2023 - 01/10/2023)
+--- Sauvegarde des tâches dans le fichier ---
+Les tâches de l'utilisateur John Doe ont été sauvegardées avec succès.
+--- Chargement des tâches depuis le fichier ---
+Les tâches de l'utilisateur John Doe ont été chargées avec succès.
+--- Affichage des tâches de l'utilisateur John Doe après chargement ---
+1) [En cours] Acheter du pain - Aller à la boulangerie (01/10/2023 - 01/10/2023)

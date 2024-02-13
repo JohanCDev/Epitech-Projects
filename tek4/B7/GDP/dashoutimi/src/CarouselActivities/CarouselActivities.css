@@ -1,0 +1,36 @@
+.image {
+  width: 70%;
+  aspect-ratio: 3/2;
+  border-radius: 10px; /* Optional: Add border-radius for rounded corners */
+}
+
+.activity-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.carousel-container {
+  width: 80%;
+  flex-direction: row;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 40px;
+}
+
+.custom-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #2980b9;
+}

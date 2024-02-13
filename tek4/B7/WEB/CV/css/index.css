@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;400;500;700&display=swap');
+
+:root {
+    --white: #FEFAF2;
+    --dark-white: #EEDFBE;
+    --blue: #1D49A7;
+    --light-blue: #7F96FF;
+    --black: #000000;
+    --light-black: #484747;
+
+    --grid-base-screen-size: 3px;
+    --title-basic-screen-size: calc(12 * var(--grid-base-screen-size));
+    --title-description-basic-screen-size: calc(9 * var(--grid-base-screen-size));
+    --title-small-description-basic-screen-size: calc(8 * var(--grid-base-screen-size));
+    --part-title-basic-screen-size: calc(7 * var(--grid-base-screen-size));
+    --description-part-title-basic-screen-size: calc(6 * var(--grid-base-screen-size));
+    --description-basic-screen-size: calc(5.5 * var(--grid-base-screen-size));
+
+    --main-width: 800px;
+    --main-height: 1130px;
+}
+
+body {
+    display: flex;
+    background-color: var(--white);
+    transform: translateY(20px);
+    animation: fadeInYTranslate 4s ease-in-out forwards;
+    animation-delay: .2s;
+    font-family: 'League Spartan';
+    background: url('../img/background.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    align-content: center;
+    justify-content: center;
+}
+
+header {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--light-blue);
+    padding: 0 0 0 calc(var(--grid-base-screen-size) * 10);
+    color: var(--dark-white);
+}
+
+aside {
+    flex: 1;
+    background: linear-gradient(var(--light-blue), var(--blue));
+    color: var(--dark-white);
+}
+
+main {
+    flex: 2;
+    background-color: var(--dark-white);
+    color: var(--black);
+    padding: calc(var(--grid-base-screen-size) * 4) calc(var(--grid-base-screen-size) * 4);
+}
+
+.cv-container {
+    display: flex;
+    width: var(--main-width);
+    height: var(--main-height);
+    background-color: var(--dark-white);
+    flex-direction: column;
+}
+
+.profile-picture-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease-in-out;
+    overflow: visible;
+}
+
+.profile-picture:hover {
+    transform: scale(1.1);
+    transition: transform .5s ease-in-out;
+    overflow: visible;
+}
+
+.profile-title {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    font-size: var(--title-basic-screen-size);
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.profile-description {
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    font-size: var(--title-description-basic-screen-size);
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.profile-description-small {
+    margin-top: calc(var(--grid-base-screen-size) * 5);
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    font-size: var(--title-small-description-basic-screen-size);
+}
+
+.main-cv-container {
+    flex: 5;
+    display: flex;
+    flex-direction: row;
+}
+
+.aside-part {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 calc(var(--grid-base-screen-size) * 5);;
+}
+
+.aside-part > .part-title {
+    font-size: var(--part-title-basic-screen-size);
+    text-align: center;
+    text-decoration: underline;
+}
+
+.language-container {
+    padding: 0 calc(var(--grid-base-screen-size) * 10);;
+}
+
+.competencies-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.competencies-container ul {
+    padding-inline-start: 15px;
+}
+
+.aside-part > .single-part-specification-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aside-part > .single-part-specification-container > a {
+    text-align: end;
+}
+
+.aside-part > .single-part-specification-container > a:hover {
+    color: var(--light-black);
+}
+
+.aside-part > .single-part-specification-container > a:visited {
+    color: var(--white);
+}
+
+.aside-part > .single-part-specification-container > a:link {
+    color: var(--dark-white);
+}
+
+.aside-part > .single-part-specification-container > .contact-icon {
+    width: 40px;
+    height: auto;
+    filter: invert(96%) sepia(9%) saturate(930%) hue-rotate(332deg) brightness(97%) contrast(91%);
+}
+
+.epitech-logo {
+    display: block;
+    margin: calc(var(--grid-base-screen-size) * 25) calc(var(--grid-base-screen-size) * 10);
+    width: 50%;
+    height: auto;
+    filter: invert(96%) sepia(9%) saturate(930%) hue-rotate(332deg) brightness(97%) contrast(91%);
+    margin: calc(var(--grid-base-screen-size) * 10) auto;
+}
+
+.main-cv-part {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-cv-part-title {
+    color: var(--blue);
+    font-size: var(--part-title-basic-screen-size);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.main-cv-description-part {
+    display: flex;
+    flex-direction: column;
+    margin: calc(var(--grid-base-screen-size)) 0 0 calc(var(--grid-base-screen-size));
+}
+
+.main-cv-description-part > .main-cv-description-part-title {
+    font-size: var(--description-part-title-basic-screen-size);
+    margin: 0;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.main-cv-description-part > .main-cv-description-part-description {
+    font-size: var(--description-basic-screen-size);
+    font-weight: 300;
+    font-style: italic;
+    margin: 0;
+}

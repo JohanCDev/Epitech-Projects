@@ -1,0 +1,14 @@
+.quarter-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Divide the screen into 2 columns */
+  grid-template-rows: repeat(2, 1fr);    /* Divide the screen into 2 rows */
+  height: 100vh;  /* 100% of the viewport height */
+}
+
+.grid-item {
+  border: 1px solid black;
+  text-align: center;
+  max-height: calc(100vh / 2);
+  max-width: calc(100vw / 2);
+  overflow: hidden;
+}
